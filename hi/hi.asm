@@ -31,10 +31,8 @@ _main:
     mov rdi, rsi  ; Copy the address of input_buffer into rdi
     add rdi, rax  ; Move rdi to the end of the string (rax contains the number of bytes read)
     mov byte [rdi - 1], '!'  ; Replace newline with !
-    inc rdi  ; Move to the position after '!'
     mov byte [rdi], `\n`  ; New line
-    inc rdi
-    mov byte [rdi], 0  ; Null-terminate the string
+    mov byte [rdi + 1], 0  ; Null-terminate the string
 
     ; Write `hi` to stdout (file descriptor 1) using the write function
     mov rax, sys_write    ; syscall number for sys_write (macOS 64-bit)
