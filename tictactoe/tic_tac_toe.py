@@ -15,8 +15,9 @@ class TicTacToe:
         return self.isWin(self.diagonals())
 
     def diagonals(self):
-        main_diagonal = [self.state[i][i] for i in range(len(self.state))]
-        anti_diagonal = [self.state[i][len(self.state)-i-1] for i in range(len(self.state))]
+        n = len(self.state)
+        main_diagonal = [self.state[i][i] for i in range(n)]
+        anti_diagonal = [self.state[i][n-i-1] for i in range(n)]
         return [main_diagonal, anti_diagonal]
 
 
