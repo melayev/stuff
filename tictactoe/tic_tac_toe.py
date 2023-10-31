@@ -2,42 +2,29 @@ class TicTacToe:
     def __init__(self, state):
         self.state = state
 
-    def getWinner(self):
-        horizontal_win = self.isWin(self.state)
-        if horizontal_win in [0, 1]:
-            return horizontal_win
-
-        vertical_win = self.isWin(list(map(list, zip(*self.state))))
-        if vertical_win in [0, 1]:
-            return vertical_win
-
-        # diagonal win
-        return self.isWin(self.diagonals())
+    def winner(self):
+        for segment in [self.state, zip(*self.state), self.diagonals()]:
+            winner = self.check_win(segment)
+            if winner in [0, 1]:
+                return winner
+        return None
 
     def diagonals(self):
         n = len(self.state)
         main_diagonal = [self.state[i][i] for i in range(n)]
-        anti_diagonal = [self.state[i][n-i-1] for i in range(n)]
+        anti_diagonal = [self.state[i][n - i - 1] for i in range(n)]
         return [main_diagonal, anti_diagonal]
 
-
-    def isWin(self, rows):
-        for row in rows:
-            if all(x == 0 for x in row):
+    def check_win(self, segment):
+        for row in segment:
+            if all(cell == 0 for cell in row):
                 return 0
-            if all(x == 1 for x in row):
+            if all(cell == 1 for cell in row):
                 return 1
         return None
 
-
-
-
 state = [[1, 0, 0], [1, 1, None], [1, 0, 1]]
-
 game = TicTacToe(state)
-winner = game.getWinner()
+winner = game.winner()
 
-if winner is None:
-    print("No winners")
-else:
-    print(f"Player {winner} wins")
+print(f"Player {winner} wins" if winner is not None else "No winner")
