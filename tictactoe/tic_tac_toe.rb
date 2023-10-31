@@ -25,8 +25,8 @@ class TicTacToe
 
      def win?(rows)
       rows.each do |row|
-          return 0 if row.uniq == [0]
-          return 1 if row.uniq == [1]
+          return 0 if row.all?{|x| x == 0}
+          return 1 if row.all?{|x| x == 1}
       end
 
       nil
@@ -34,7 +34,7 @@ class TicTacToe
 
 end
 
-state = [[1, 0, 0], [1, 1, nil], [0, 1, 1]]
+state = [[nil, 0, 0], [1, 1, nil], [0, 1, 1]]
 
 game = TicTacToe.new(state)
 winner = game.getWinner()
